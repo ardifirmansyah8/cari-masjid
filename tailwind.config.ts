@@ -23,6 +23,7 @@ const config = {
         "grey-3": "#F4F4F4",
         "grey-4": "#7B7B7B",
         "grey-5": "#C4C4C4",
+        "grey-6": "#F0F0F0",
         "green-1": "#45AF63",
         "green-2": "#DAEFE0",
         "blue-1": "#005596",

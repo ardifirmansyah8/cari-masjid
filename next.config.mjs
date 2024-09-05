@@ -9,6 +9,12 @@ const nextConfig = {
         port: "",
         pathname: "/assets/icons/menus/**",
       },
+      {
+        protocol: "https",
+        hostname: "api.masjed.id",
+        port: "",
+        pathname: "/api/v1/mosques/**",
+      },
     ],
   },
 };
