@@ -66,7 +66,12 @@ export default function NearestMosque({ coordinate }: Props) {
   return (
     <div className="min-w-0 max-width-[1024px] flex flex-col gap-4">
       <Label className="text-base font-semibold">Masjid Terdekat</Label>
-      {!isFetching && (
+      {!isFetching && nearestMosques.length === 0 && (
+        <div className="w-full p-10 flex justify-center items-center">
+          Tidak ada data
+        </div>
+      )}
+      {!isFetching && nearestMosques.length > 0 && (
         <Slider {...settings}>
           {nearestMosques.map((mosque, i) => (
             <div
