@@ -7,9 +7,9 @@ import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  useFetchMosqueActivities,
   useFetchMosqueChart,
   useFetchMosqueDetail,
   useFetchMosqueFunds,
@@ -17,6 +17,8 @@ import {
 import { delimiter } from "@/utils/string";
 
 import "chart.js/auto";
+import ActivityContent from "./ActivityContent";
+import FundContent from "./FundContent";
 
 const Chart = dynamic(
   () => import("react-chartjs-2").then((mod) => mod.Chart),
@@ -27,19 +29,15 @@ const Chart = dynamic(
 
 export default function DetailMosque({
   selectedMosque,
+  onReset,
 }: {
   selectedMosque: string;
+  onReset: () => void;
 }) {
   const [isShowDetail, setIsShowDetail] = useState(false);
 
   const { data: mosqueDetail } = useFetchMosqueDetail(selectedMosque);
   const mosque = mosqueDetail?.data;
-
-  const { data: mosqueActivities } = useFetchMosqueActivities(selectedMosque);
-  const activities = mosqueActivities?.data;
-
-  const { data: mosqueFunds } = useFetchMosqueFunds(selectedMosque);
-  const funds = mosqueFunds?.data;
 
   const { data: mosqueChart } = useFetchMosqueChart(selectedMosque);
   const chart = mosqueChart?.data;
@@ -113,8 +111,8 @@ export default function DetailMosque({
       })}
     >
       {!isShowDetail ? (
-        <div className="w-full flex flex-col">
-          <Tabs defaultValue="info" className="w-full flex-1">
+        <div className="w-full h-full flex flex-col">
+          <Tabs defaultValue="info" className="w-full">
             <TabsList>
               <TabsTrigger value="info">Informasi</TabsTrigger>
               <TabsTrigger value="activities">Kegiatan</TabsTrigger>
@@ -132,7 +130,7 @@ export default function DetailMosque({
 
                 <div className="flex flex-col gap-2.5">
                   <div className="flex justify-between items-center">
-                    <Label className="text-xl font-bold line-clamp-2">
+                    <Label className="text-base md:text-xl font-bold line-clamp-2">
                       {mosque?.name}
                     </Label>
                     <Button
@@ -174,7 +172,7 @@ export default function DetailMosque({
                       <Label className="text-xs font-semibold">
                         Saldo Kotak Amal
                       </Label>
-                      <Label className="text-xl font-semibold text-green-1">
+                      <Label className="text-base md:text-xl font-semibold text-green-1">
                         Rp {delimiter(mosque?.totalBalance || 0)}
                       </Label>
                     </div>
@@ -189,51 +187,11 @@ export default function DetailMosque({
                 </div>
               </div>
             </TabsContent>
-            <TabsContent value="activities" className="flex flex-col gap-1">
-              {activities &&
-                activities.length > 0 &&
-                activities.map((activity) => (
-                  <div key={activity.id} className="py-4">
-                    <div className="flex gap-2.5 p-2.5 border border-grey-1 rounded">
-                      <Image
-                        src={activity.imageUrl || "/dummy-image.png"}
-                        alt="image-activity"
-                        width={80}
-                        height={50}
-                        className="rounded object-cover"
-                      />
-                      <div className="flex flex-col gap-1">
-                        <Label className="line-clamp-2">{activity.name}</Label>
-                        <Label className="text-xs text-green-1">
-                          #{activity.category.name}
-                        </Label>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            <TabsContent value="activities">
+              <ActivityContent selectedMosque={selectedMosque} />
             </TabsContent>
-            <TabsContent value="funds" className="flex flex-col gap-1">
-              {funds &&
-                funds.length > 0 &&
-                funds.map((fund) => (
-                  <div key={fund.id} className="py-4">
-                    <div className="flex gap-2.5 p-2.5 border border-grey-1 rounded">
-                      <Image
-                        src={fund.imageUrl || "/dummy-image.png"}
-                        alt="image-fund"
-                        width={80}
-                        height={50}
-                        className="rounded object-cover"
-                      />
-                      <div className="flex flex-col gap-1">
-                        <Label>{fund.name}</Label>
-                        <Label className="text-xs text-green-1">
-                          #{fund.category.name}
-                        </Label>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+            <TabsContent value="funds">
+              <FundContent selectedMosque={selectedMosque} />
             </TabsContent>
           </Tabs>
 
@@ -247,10 +205,11 @@ export default function DetailMosque({
               </Label>
             </div>
 
-            <div className="mt-2.5 grid grid-cols-3 gap-4">
-              <Button>Infaq</Button>
-              <Button>Zakat</Button>
-              <Button>Wakaf</Button>
+            <div className="mt-2.5 grid grid-cols-2 gap-4">
+              <Button variant={"outline"} onClick={() => onReset()}>
+                Tutup
+              </Button>
+              <Button>Infaq Kotak Amal</Button>
             </div>
           </div>
         </div>

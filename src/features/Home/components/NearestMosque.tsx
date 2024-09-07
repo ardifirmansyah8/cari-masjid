@@ -13,6 +13,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 interface Props {
   coordinate: { lat: number; lng: number };
+  onClickMosque: (id: string) => void;
+  onChangeCoordinate: (coordinate: { lat: number; lng: number }) => void;
 }
 
 const settings = {
@@ -53,7 +55,11 @@ const settings = {
   ],
 };
 
-export default function NearestMosque({ coordinate }: Props) {
+export default function NearestMosque({
+  coordinate,
+  onClickMosque,
+  onChangeCoordinate,
+}: Props) {
   const router = useRouter();
 
   const { data, isFetching } = useFetchFindNearestMosques(
@@ -64,7 +70,7 @@ export default function NearestMosque({ coordinate }: Props) {
   const nearestMosques = data?.data ?? [];
 
   return (
-    <div className="min-w-0 max-width-[1024px] flex flex-col gap-4">
+    <div className="min-w-0 flex flex-col gap-4">
       <Label className="text-base font-semibold">Masjid Terdekat</Label>
       {!isFetching && nearestMosques.length === 0 && (
         <div className="w-full p-10 flex justify-center items-center">
@@ -87,7 +93,18 @@ export default function NearestMosque({ coordinate }: Props) {
               />
               <div className="p-5 max-h-[162px] flex flex-col gap-4 rounded-bl-[10px] rounded-br-[10px]">
                 <div className="flex flex-col gap-1">
-                  <Label className="font-semibold">{mosque.name}</Label>
+                  <Label
+                    className="font-semibold cursor-pointer hover:text-blue-1"
+                    onClick={() => {
+                      onClickMosque(mosque.id);
+                      onChangeCoordinate({
+                        lat: parseFloat(mosque.latitude),
+                        lng: parseFloat(mosque.longitude),
+                      });
+                    }}
+                  >
+                    {mosque.name}
+                  </Label>
                   <Label className="text-xs font-normal">
                     {Math.ceil(mosque.distanceInMeters)}m
                   </Label>

@@ -10,7 +10,7 @@ import Crosshairs from "./components/Crosshairs";
 import DetailMosque from "./components/DetailMosque";
 import MapHandler from "./components/MapHandler";
 import NearestMosque from "./components/NearestMosque";
-import { useFetchFindNearestMosques, useFetchMosqueDetail } from "@/hooks";
+import { useFetchFindNearestMosques } from "@/hooks";
 
 export default function Home() {
   const [coordinate, setCoordinate] = useState({
@@ -21,9 +21,6 @@ export default function Home() {
 
   const { data } = useFetchFindNearestMosques(coordinate);
   const nearestMosques = data?.data;
-
-  const { data: mosqueDetail } = useFetchMosqueDetail(selectedMosque);
-  const mosque = mosqueDetail?.data;
 
   const geolocate = () => {
     navigator.geolocation.getCurrentPosition(
@@ -48,8 +45,8 @@ export default function Home() {
       <Label className="text-base md:text-xl">
         Lokasi masjid di sekitar Anda
       </Label>
-      <div className="flex items-center gap-4 mt-4 mb-6">
-        <div className="relative flex-1 h-[330px] md:h-[625px]">
+      <div className="flex flex-col md:flex-row items-center gap-4 mt-4 mb-6">
+        <div className="relative w-full md:flex-1 h-[330px] md:h-[625px]">
           <APIProvider apiKey={"AIzaSyDd-Xv_wBoM5_oaEwAuDpIy_nTRCkKX2EI"}>
             <Map
               mapId="masjed-map"
@@ -73,7 +70,7 @@ export default function Home() {
                     onClick={() => setSelectedMosque(mosque.id)}
                   >
                     <Image
-                      src="https://api.masjed.id/assets/icons/menus/registered.png"
+                      src="/masjid-registered.png"
                       width={24}
                       height={24}
                       alt="marker"
@@ -88,10 +85,19 @@ export default function Home() {
           </APIProvider>
         </div>
 
-        <DetailMosque selectedMosque={selectedMosque} />
+        <DetailMosque
+          selectedMosque={selectedMosque}
+          onReset={() => setSelectedMosque("")}
+        />
       </div>
 
-      <NearestMosque coordinate={coordinate} />
+      <NearestMosque
+        coordinate={coordinate}
+        onClickMosque={(id: string) => setSelectedMosque(id)}
+        onChangeCoordinate={(coordinate: { lat: number; lng: number }) =>
+          setCoordinate(coordinate)
+        }
+      />
     </>
   );
 }
