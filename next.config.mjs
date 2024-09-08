@@ -21,6 +21,12 @@ const nextConfig = {
         port: "",
         pathname: "/api/v1/activities/**",
       },
+      {
+        protocol: "https",
+        hostname: "images.duitku.com",
+        port: "",
+        pathname: "/hotlink-ok/**",
+      },
     ],
   },
 };

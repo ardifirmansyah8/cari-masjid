@@ -46,3 +46,38 @@ interface Chart {
   wakaf: number;
   month: "string";
 }
+
+interface IPaymentFee {
+  paymentImage: string;
+  paymentMethod: string;
+  paymentName: string;
+  totalFee: string;
+  type: "va" | "qris" | "retail" | "ewallet" | "other";
+}
+
+interface IPaymentMethod {
+  type: string;
+  method: IPaymentFee[];
+}
+
+interface IDonationPayload {
+  paymentAmount: number;
+  paymentMethod: string;
+  productDetails: string;
+  customerVaName: string;
+  email: string;
+  phoneNumber: string;
+  itemDetails: {
+    name: string;
+    price: number;
+    quantity: number;
+  }[];
+  customerDetail: {
+    firstName: string;
+    lastName: string | null;
+    email: string | null;
+    phoneNumber: string;
+  };
+  callbackUrl: string;
+  expiryPeriod: number;
+}
