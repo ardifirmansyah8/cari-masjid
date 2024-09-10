@@ -13,13 +13,13 @@ const nextConfig = {
         protocol: "https",
         hostname: "api.masjed.id",
         port: "",
-        pathname: "/api/v1/mosques/**",
+        pathname: "/api/v1/**",
       },
       {
         protocol: "https",
         hostname: "api.masjed.id",
         port: "",
-        pathname: "/api/v1/activities/**",
+        pathname: "/api/v2/**",
       },
       {
         protocol: "https",

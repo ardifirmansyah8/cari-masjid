@@ -12,6 +12,7 @@ export const useFetchFindNearestMosques = (
   limit?: ParamsNearest["limit"],
   key = "finding-nearest"
 ) => {
+  console.log(lat, lng);
   return useQuery({
     queryKey: [key, lat, lng],
     queryFn: async (): Promise<GeneralResponse<Mosque[]>> => {
@@ -32,6 +33,7 @@ export const useFetchFindNearestMosques = (
         });
       }
     },
+    enabled: !!lat && !!lng,
   });
 };
 

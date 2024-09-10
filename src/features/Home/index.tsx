@@ -2,6 +2,7 @@
 
 import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Label } from "@/components/ui/label";
@@ -13,9 +14,13 @@ import NearestMosque from "./components/NearestMosque";
 import { useFetchFindNearestMosques } from "@/hooks";
 
 export default function Home() {
+  const searchParam = useSearchParams();
+  const latitude = searchParam.get("lat");
+  const longitude = searchParam.get("lng");
+
   const [coordinate, setCoordinate] = useState({
-    lat: -6.175392,
-    lng: 106.827153,
+    lat: 0,
+    lng: 0,
   });
   const [selectedMosque, setSelectedMosque] = useState("");
 
@@ -32,13 +37,25 @@ export default function Home() {
           lat: lat,
           lng: lng,
         });
-      }
+      },
+      () =>
+        setCoordinate({
+          lat: -6.175392,
+          lng: 106.827153,
+        })
     );
   };
 
   useEffect(() => {
-    geolocate();
-  }, []);
+    if (latitude && longitude) {
+      setCoordinate({
+        lat: parseFloat(latitude),
+        lng: parseFloat(longitude),
+      });
+    } else {
+      geolocate();
+    }
+  }, [latitude, longitude]);
 
   return (
     <>

@@ -15,6 +15,8 @@ import FundContent from "./FundContent";
 import DonationDialog from "./DonationDialog";
 
 import "chart.js/auto";
+import { Share, Share2, X } from "lucide-react";
+import ShareDialog from "./ShareDialog";
 
 const Chart = dynamic(
   () => import("react-chartjs-2").then((mod) => mod.Chart),
@@ -119,11 +121,15 @@ export default function DetailMosque({
               <TabsContent value="info">
                 <div className="py-4 flex flex-col gap-4">
                   <Image
-                    src={mosque?.imageUrl || "/dummy-image.png"}
+                    src={mosque?.imageUrl || "/mosque-placeholder.png"}
                     alt="masjid-detail"
                     width={382}
                     height={210}
                     className="w-full rounded"
+                    loader={({ src }) => src}
+                    onError={(e: any) => {
+                      e.target.srcset = "/mosque-placeholder.png";
+                    }}
                   />
 
                   <div className="flex flex-col gap-2.5">
@@ -203,11 +209,20 @@ export default function DetailMosque({
                 </Label>
               </div>
 
-              <div className="mt-2.5 grid grid-cols-2 gap-4">
+              <div className="mt-2.5 flex gap-4">
                 <Button variant={"outline"} onClick={() => onReset()}>
-                  Tutup
+                  <X className="w-4 h-4" />
                 </Button>
-                <Button onClick={() => setDialog("payment-method")}>
+                <Button
+                  variant={"outline"}
+                  onClick={() => setDialog("share-dialog")}
+                >
+                  <Share2 className="w-4 h-4" />
+                </Button>
+                <Button
+                  className="flex-1"
+                  onClick={() => setDialog("payment-method")}
+                >
                   Infaq Kotak Amal
                 </Button>
               </div>
@@ -285,6 +300,17 @@ export default function DetailMosque({
           </div>
         )}
       </div>
+
+      {typeof window !== "undefined" && (
+        <ShareDialog
+          coordinate={{
+            lat: mosque?.latitude ?? "",
+            lng: mosque?.longitude ?? "",
+          }}
+          open={dialog === "share-dialog"}
+          onClose={() => setDialog("")}
+        />
+      )}
 
       <DonationDialog
         open={dialog === "payment-method"}

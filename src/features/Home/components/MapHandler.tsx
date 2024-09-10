@@ -11,7 +11,9 @@ const MapHandler = ({ coordinate }: Props) => {
   useEffect(() => {
     if (!map) return;
 
-    map.setCenter(coordinate);
+    if (coordinate.lat && coordinate.lng) {
+      map.setCenter(coordinate);
+    }
   }, [map, coordinate]);
 
   return null;
