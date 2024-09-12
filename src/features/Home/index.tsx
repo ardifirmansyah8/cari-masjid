@@ -2,6 +2,7 @@
 
 import { AdvancedMarker, APIProvider, Map } from "@vis.gl/react-google-maps";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { Label } from "@/components/ui/label";
@@ -13,9 +14,13 @@ import NearestMosque from "./components/NearestMosque";
 import { useFetchFindNearestMosques } from "@/hooks";
 
 export default function Home() {
+  const searchParam = useSearchParams();
+  const latitude = searchParam.get("lat");
+  const longitude = searchParam.get("lng");
+
   const [coordinate, setCoordinate] = useState({
-    lat: -6.175392,
-    lng: 106.827153,
+    lat: 0,
+    lng: 0,
   });
   const [selectedMosque, setSelectedMosque] = useState("");
 
@@ -32,21 +37,33 @@ export default function Home() {
           lat: lat,
           lng: lng,
         });
-      }
+      },
+      () =>
+        setCoordinate({
+          lat: -6.175392,
+          lng: 106.827153,
+        })
     );
   };
 
   useEffect(() => {
-    geolocate();
-  }, []);
+    if (latitude && longitude) {
+      setCoordinate({
+        lat: parseFloat(latitude),
+        lng: parseFloat(longitude),
+      });
+    } else {
+      geolocate();
+    }
+  }, [latitude, longitude]);
 
   return (
     <>
-      <Label className="text-base md:text-xl">
+      {/* <Label className="text-base md:text-xl">
         Lokasi masjid di sekitar Anda
-      </Label>
-      <div className="flex flex-col md:flex-row items-center gap-4 mt-4 mb-6">
-        <div className="relative w-full md:flex-1 h-[330px] md:h-[625px]">
+      </Label> */}
+      <div className="flex flex-col md:flex-row items-center gap-4 mb-6">
+        <div className="relative w-full md:flex-1 h-[450px] md:h-[650px]">
           <APIProvider apiKey={"AIzaSyDd-Xv_wBoM5_oaEwAuDpIy_nTRCkKX2EI"}>
             <Map
               mapId="masjed-map"
@@ -71,8 +88,8 @@ export default function Home() {
                   >
                     <Image
                       src="/masjid-registered.png"
-                      width={24}
-                      height={24}
+                      width={30}
+                      height={30}
                       alt="marker"
                     />
                   </AdvancedMarker>

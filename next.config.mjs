@@ -19,7 +19,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "api.masjed.id",
         port: "",
-        pathname: "/api/v2/activities/**",
+        pathname: "/api/v2/**",
       },
       {
         protocol: "https",

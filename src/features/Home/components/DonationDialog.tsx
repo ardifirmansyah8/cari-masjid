@@ -94,7 +94,7 @@ export default function DonationDialog({
       productDetails: id,
       customerVaName: "Hamba Allah",
       email: "payment@eziswaf.net",
-      phoneNumber: "0" + data.phone,
+      phoneNumber: "62" + data.phone,
       itemDetails: [
         {
           name: id,
@@ -106,7 +106,7 @@ export default function DonationDialog({
         firstName: "Hamba Allah",
         lastName: null,
         email: null,
-        phoneNumber: "0" + data.phone,
+        phoneNumber: "62" + data.phone,
       },
       callbackUrl: "http://lifestyle.eziswaf.net/api/v1/transactions/callback",
       expiryPeriod: 60,

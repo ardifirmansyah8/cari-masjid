@@ -10,7 +10,7 @@ type Props = {
 export default function Layout({ children }: Props) {
   return (
     <div className="bg-white w-full flex flex-col items-center">
-      <header
+      {/* <header
         className="w-full flex py-2.5 md:py-4 px-4 md:px-10"
         style={{ boxShadow: "0 4px 2px -2px #0000000D" }}
       >
@@ -25,7 +25,7 @@ export default function Layout({ children }: Props) {
             />
           </Link>
         </div>
-      </header>
+      </header> */}
 
       <main className="w-full py-6 md:py-8 px-4 md:px-10">
         <section className="flex flex-col w-full">{children}</section>

@@ -10,6 +10,7 @@ import { useFetchFindNearestMosques } from "@/hooks";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { SyntheticEvent } from "react";
 
 interface Props {
   coordinate: { lat: number; lng: number };
@@ -83,25 +84,29 @@ export default function NearestMosque({
             <div
               key={i}
               className="border border-grey-1 flex flex-col rounded-[10px]"
+              onClick={() => {
+                onClickMosque(mosque.id);
+                onChangeCoordinate({
+                  lat: parseFloat(mosque.latitude),
+                  lng: parseFloat(mosque.longitude),
+                });
+              }}
             >
               <Image
-                src={mosque.imageUrl}
+                src={mosque.imageUrl || "/mosque-placeholder.png"}
                 alt="masjid"
                 width={280}
                 height={150}
                 className="w-full rounded-tl-[10px] rounded-tr-[10px]"
+                loader={({ src }) => src}
+                onError={(e: any) => {
+                  e.target.srcset = "/mosque-placeholder.png";
+                }}
               />
-              <div className="p-5 max-h-[162px] flex flex-col gap-4 rounded-bl-[10px] rounded-br-[10px]">
+              <div className="p-5 h-[150px] flex flex-col gap-4 rounded-bl-[10px] rounded-br-[10px]">
                 <div className="flex flex-col gap-1">
                   <Label
-                    className="font-semibold cursor-pointer hover:text-blue-1"
-                    onClick={() => {
-                      onClickMosque(mosque.id);
-                      onChangeCoordinate({
-                        lat: parseFloat(mosque.latitude),
-                        lng: parseFloat(mosque.longitude),
-                      });
-                    }}
+                    className="font-semibold cursor-pointer hover:text-blue-1 line-clamp-2"
                   >
                     {mosque.name}
                   </Label>
@@ -118,7 +123,7 @@ export default function NearestMosque({
                     className="w-6 h-6"
                   />
 
-                  <Label className="text-xs font-normal line-clamp-5">
+                  <Label className="text-xs font-normal line-clamp-3">
                     {mosque.address}
                   </Label>
                 </div>

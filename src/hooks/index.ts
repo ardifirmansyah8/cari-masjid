@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { BASE_API_URL, BASE_API_URL_EZISWAF } from "@/utils/constant";
 
 interface ParamsNearest {
   coordinate: { lat: number; lng: number };
@@ -12,13 +13,14 @@ export const useFetchFindNearestMosques = (
   limit?: ParamsNearest["limit"],
   key = "finding-nearest"
 ) => {
+  console.log(lat, lng);
   return useQuery({
     queryKey: [key, lat, lng],
     queryFn: async (): Promise<GeneralResponse<Mosque[]>> => {
       try {
         const resp = await axios({
           method: "get",
-          url: `https://api.masjed.id/api/v2/mosques`,
+          url: `${BASE_API_URL}/api/v2/mosques`,
           params: {
             latitude: lat,
             longitude: lng,
@@ -32,6 +34,7 @@ export const useFetchFindNearestMosques = (
         });
       }
     },
+    enabled: !!lat && !!lng,
   });
 };
 
@@ -42,7 +45,7 @@ export const useFetchMosqueDetail = (id: string) => {
       try {
         const resp = await axios({
           method: "get",
-          url: `https://api.masjed.id/api/v2/mosques/${id}`,
+          url: `${BASE_API_URL}/api/v2/mosques/${id}`,
         });
         return resp.data;
       } catch (error: any) {
@@ -62,7 +65,7 @@ export const useFetchMosqueActivities = (id: string, page: number) => {
       try {
         const resp = await axios({
           method: "get",
-          url: `https://api.masjed.id/api/v2/activities`,
+          url: `${BASE_API_URL}/api/v2/activities`,
           params: {
             page,
             limit: 7,
@@ -87,7 +90,7 @@ export const useFetchMosqueFunds = (id: string, page: number) => {
       try {
         const resp = await axios({
           method: "get",
-          url: `https://api.masjed.id/api/v2/funds`,
+          url: `${BASE_API_URL}/api/v2/funds`,
           params: {
             page,
             limit: 7,
@@ -112,7 +115,7 @@ export const useFetchMosqueChart = (id: string) => {
       try {
         const resp = await axios({
           method: "get",
-          url: `https://api.masjed.id/api/v2/transactions/mosques/${id}/chart`,
+          url: `${BASE_API_URL}/api/v2/transactions/mosques/${id}/chart`,
         });
         return resp.data;
       } catch (error: any) {
@@ -131,7 +134,7 @@ export const usePaymentMethods = () => {
     mutationFn: (amount: number) =>
       axios({
         method: "post",
-        url: `https://api.eziswaf.net/v1/pay/methods`,
+        url: `${BASE_API_URL_EZISWAF}/v1/pay/methods`,
         data: {
           amount,
         },
@@ -149,7 +152,7 @@ export const usePayment = () => {
     mutationFn: (payload: IDonationPayload) =>
       axios({
         method: "post",
-        url: `https://api.eziswaf.net/v1/pay/inquiry`,
+        url: `${BASE_API_URL_EZISWAF}/v1/pay/inquiry`,
         data: payload,
       }).catch((error: any) => {
         throw new Error(error.response?.data?.message || error.message, {
