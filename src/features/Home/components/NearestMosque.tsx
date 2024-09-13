@@ -72,7 +72,7 @@ export default function NearestMosque({
 
   return (
     <div className="min-w-0 flex flex-col gap-4">
-      <Label className="text-base font-semibold">Masjid Terdekat</Label>
+      <Label className="text-base font-semibold underline">Masjid Terdekat</Label>
       {!isFetching && nearestMosques.length === 0 && (
         <div className="w-full p-10 flex justify-center items-center">
           Tidak ada data

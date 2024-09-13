@@ -200,18 +200,31 @@ export default function DetailMosque({
             </Tabs>
 
             <div>
-              <div className="bg-blue-2 py-2 px-4 rounded">
-                <Label className="text-[10px] leading-4">
-                  *INFAQ yang anda berikan ke masjid ini akan disalurkan melalui{" "}
-                  <span className="font-bold text-blue-1">
-                    Yayasan Dompet Yatim dan Mesjid
+              <div className="flex justify-between bg-blue-2 py-2 px-4 rounded">
+                <Label className="text-[9px] leading-4">
+                  *INFAQ masjid ini akan disalurkan melalui
+                  Lembaga Amil Zakat:{" "}
+                  <span className="font-bold text-blue-1 text-[12px]">
+                    <br />Yayasan Dompet Yatim dan Mesjid
+                  </span>
+                  <span className="font-bold">
+                    <br />SK Menteri Agama RI Nomor 027/F/Tahun 2022
                   </span>
                 </Label>
+                <Image
+                  src="/icon/icon-laz.svg"
+                  alt="icon-laz"
+                  width={50}
+                  height={50}
+                />
               </div>
 
               <div className="mt-2.5 flex gap-4">
-                <Button variant={"outline"} onClick={() => onReset()}>
-                  <X className="w-4 h-4" />
+                <Button
+                  className="flex-1"
+                  onClick={() => setDialog("payment-method")}
+                >
+                  Infaq Kotak Amal
                 </Button>
                 <Button
                   variant={"outline"}
@@ -219,11 +232,8 @@ export default function DetailMosque({
                 >
                   <Share2 className="w-4 h-4" />
                 </Button>
-                <Button
-                  className="flex-1"
-                  onClick={() => setDialog("payment-method")}
-                >
-                  Infaq Kotak Amal
+                <Button variant={"outline"} onClick={() => onReset()}>
+                  <X className="w-4 h-4" />
                 </Button>
               </div>
             </div>

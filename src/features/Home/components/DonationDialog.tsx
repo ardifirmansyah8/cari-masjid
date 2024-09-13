@@ -159,7 +159,7 @@ export default function DonationDialog({
             </div>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="phone">No Handphone</Label>
+              <Label htmlFor="phone">No Handphone<br/><span className="text-[8px] italic">Untuk menerima Bukti Setor E-ZISWAF</span></Label>
               <Input
                 id="phone"
                 leftIcon={

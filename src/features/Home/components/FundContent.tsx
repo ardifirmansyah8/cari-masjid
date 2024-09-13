@@ -65,6 +65,10 @@ export default function FundContent({
                 width={80}
                 height={50}
                 className="rounded object-cover"
+                loader={({ src }) => src}
+                onError={(e: any) => {
+                  e.target.srcset = "/dummy-image.png";
+                }}
               />
               <div className="flex flex-col gap-1">
                 <Label className="line-clamp-2">{fund.name}</Label>

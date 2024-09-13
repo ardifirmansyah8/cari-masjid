@@ -63,7 +63,8 @@ export default function Home() {
         Lokasi masjid di sekitar Anda
       </Label> */}
       <div className="flex flex-col md:flex-row items-center gap-4 mb-6">
-        <div className="relative w-full md:flex-1 h-[450px] md:h-[650px]">
+        { selectedMosque === "" && ( 
+          <div className="relative w-full md:flex-1 h-[550px] md:h-[650px]">
           <APIProvider apiKey={"AIzaSyDd-Xv_wBoM5_oaEwAuDpIy_nTRCkKX2EI"}>
             <Map
               mapId="masjed-map"
@@ -101,7 +102,7 @@ export default function Home() {
             <MapHandler coordinate={coordinate} />
           </APIProvider>
         </div>
-
+        )}
         <DetailMosque
           selectedMosque={selectedMosque}
           onReset={() => setSelectedMosque("")}
