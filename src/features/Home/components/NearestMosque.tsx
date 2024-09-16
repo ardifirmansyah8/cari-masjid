@@ -72,7 +72,7 @@ export default function NearestMosque({
 
   return (
     <div className="min-w-0 flex flex-col gap-4">
-      <Label className="text-base font-semibold">Masjid Terdekat</Label>
+      <Label className="text-base font-semibold underline">Masjid Terdekat</Label>
       {!isFetching && nearestMosques.length === 0 && (
         <div className="w-full p-10 flex justify-center items-center">
           Tidak ada data
@@ -84,6 +84,13 @@ export default function NearestMosque({
             <div
               key={i}
               className="border border-grey-1 flex flex-col rounded-[10px]"
+              onClick={() => {
+                onClickMosque(mosque.id);
+                onChangeCoordinate({
+                  lat: parseFloat(mosque.latitude),
+                  lng: parseFloat(mosque.longitude),
+                });
+              }}
             >
               <Image
                 src={mosque.imageUrl || "/mosque-placeholder.png"}
@@ -100,13 +107,6 @@ export default function NearestMosque({
                 <div className="flex flex-col gap-1">
                   <Label
                     className="font-semibold cursor-pointer hover:text-blue-1 line-clamp-2"
-                    onClick={() => {
-                      onClickMosque(mosque.id);
-                      onChangeCoordinate({
-                        lat: parseFloat(mosque.latitude),
-                        lng: parseFloat(mosque.longitude),
-                      });
-                    }}
                   >
                     {mosque.name}
                   </Label>
