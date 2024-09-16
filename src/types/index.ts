@@ -40,11 +40,28 @@ interface Activity {
   };
 }
 
+interface ActivityDetail {
+  id: string;
+  name: string;
+  description: string;
+  content: string;
+  category: {
+    id: number;
+    name: string;
+    title: string;
+  };
+  mosque: {
+    id: string;
+    name: string;
+  };
+  imageUrl: string;
+}
+
 interface Chart {
   zakat: number;
   infaq: number;
   wakaf: number;
-  month: "string";
+  month: string;
 }
 
 interface IPaymentFee {

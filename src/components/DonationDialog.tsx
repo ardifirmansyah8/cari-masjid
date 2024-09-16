@@ -121,13 +121,14 @@ export default function DonationDialog({
 
   return (
     <Dialog open={open}>
-      <DialogContent className="md:w-[600px] p-0" close={false}>
-        <ScrollArea className="h-full md:h-[500px] p-7">
+      <DialogContent className="md:w-[550px] h-full p-0" close={false}>
+        <div className="flex items-center justify-between rounded-tl-sm rounded-tr-sm border-b border-grey-1 p-7">
+          <Label className="text-base text-red-1">Infaq Kotak Amal</Label>
+          <X className="h-6 w-6 cursor-pointer" onClick={onClose} />
+        </div>
+
+        <ScrollArea className="md:h-[450px] px-7">
           <div className="flex flex-col gap-7 relative">
-            <div className="flex items-center justify-between rounded-tl-sm rounded-tr-sm">
-              <Label className="text-base text-red-1">Infaq Kotak Amal</Label>
-              <X className="h-6 w-6 cursor-pointer" onClick={onClose} />
-            </div>
             <div className="flex flex-col gap-2.5">
               <div className="flex flex-col gap-1">
                 <Label htmlFor="amount" className="text-grey-2">
@@ -232,15 +233,18 @@ export default function DonationDialog({
                 }
               </Label>
             </div>
-
-            <Button
-              disabled={!selectedMethod}
-              onClick={handleSubmit(handlePayment)}
-            >
-              Bayar
-            </Button>
           </div>
         </ScrollArea>
+
+        <div className="p-7 w-full">
+          <Button
+            className="w-full"
+            disabled={!selectedMethod}
+            onClick={handleSubmit(handlePayment)}
+          >
+            Bayar
+          </Button>
+        </div>
       </DialogContent>
     </Dialog>
   );

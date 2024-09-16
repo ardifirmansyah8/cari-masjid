@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Label } from "@/components/ui/label";
@@ -50,6 +51,11 @@ export default function ActivityContent({
 
   return (
     <ScrollArea className="h-[400px] w-full my-4 pr-3">
+      {activities.length === 0 && (
+        <div className="w-full flex justify-center p-10">
+          <Label className="text-center">Tidak ada kegiatan</Label>
+        </div>
+      )}
       <div className="flex flex-col gap-1">
         {activities &&
           activities.length > 0 &&
@@ -71,7 +77,12 @@ export default function ActivityContent({
                 // }}
               />
               <div className="flex flex-col gap-1">
-                <Label className="line-clamp-2">{activity.name}</Label>
+                <Link
+                  href={"/activity/" + activity.id}
+                  className="line-clamp-2 hover:text-blue-1"
+                >
+                  {activity.name}
+                </Link>
                 <Label className="text-xs text-green-1">
                   #{activity.category.name}
                 </Label>

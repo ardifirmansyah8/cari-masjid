@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import { Share, Share2, X } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useMemo, useState } from "react";
@@ -9,14 +10,13 @@ import { useFetchMosqueChart, useFetchMosqueDetail } from "@/hooks";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import DonationDialog from "@/components/DonationDialog";
 import { delimiter } from "@/utils/string";
 import ActivityContent from "./ActivityContent";
 import FundContent from "./FundContent";
-import DonationDialog from "./DonationDialog";
+import ShareDialog from "./ShareDialog";
 
 import "chart.js/auto";
-import { Share, Share2, X } from "lucide-react";
-import ShareDialog from "./ShareDialog";
 
 const Chart = dynamic(
   () => import("react-chartjs-2").then((mod) => mod.Chart),
@@ -112,7 +112,7 @@ export default function DetailMosque({
       >
         {!isShowDetail ? (
           <div className="w-full h-full flex flex-col">
-            <Tabs defaultValue="info" className="w-full">
+            <Tabs defaultValue="info" className="w-full flex-1">
               <TabsList>
                 <TabsTrigger value="info">Informasi</TabsTrigger>
                 <TabsTrigger value="activities">Kegiatan</TabsTrigger>
@@ -235,7 +235,8 @@ export default function DetailMosque({
                 src={"/icon/icon-arrow-single-left.svg"}
                 width={24}
                 height={24}
-                alt="icon-arrow-left cursor-pointer"
+                alt="icon-arrow-left"
+                className="cursor-pointer"
                 onClick={() => setIsShowDetail(false)}
               />
               <div className="flex flex-col gap-1">

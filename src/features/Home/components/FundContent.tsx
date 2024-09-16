@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Label } from "@/components/ui/label";
@@ -50,6 +51,11 @@ export default function FundContent({
 
   return (
     <ScrollArea className="h-[400px] w-full my-4 pr-3">
+      {funds.length === 0 && (
+        <div className="w-full flex justify-center p-10">
+          <Label className="text-center">Tidak ada pendanaan</Label>
+        </div>
+      )}
       <div className="flex flex-col gap-1">
         {funds &&
           funds.length > 0 &&
@@ -67,7 +73,12 @@ export default function FundContent({
                 className="rounded object-cover"
               />
               <div className="flex flex-col gap-1">
-                <Label className="line-clamp-2">{fund.name}</Label>
+                <Link
+                  href={"/fund/" + fund.id}
+                  className="line-clamp-2 hover:text-blue-1"
+                >
+                  {fund.name}
+                </Link>
                 <Label className="text-xs text-green-1">
                   #{fund.category.name}
                 </Label>

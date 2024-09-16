@@ -82,6 +82,26 @@ export const useFetchMosqueActivities = (id: string, page: number) => {
   });
 };
 
+export const useFetchActivityDetail = (id: string) => {
+  return useQuery({
+    queryKey: ["activity-detail", id],
+    queryFn: async (): Promise<GeneralResponse<ActivityDetail>> => {
+      try {
+        const resp = await axios({
+          method: "get",
+          url: `https://api.masjed.id/api/v2/activities/${id}`,
+        });
+        return resp.data;
+      } catch (error: any) {
+        throw new Error(error.response.data.message || error.message, {
+          cause: error,
+        });
+      }
+    },
+    enabled: !!id,
+  });
+};
+
 export const useFetchMosqueFunds = (id: string, page: number) => {
   return useQuery({
     queryKey: ["mosque-funds", id, page],
@@ -95,6 +115,26 @@ export const useFetchMosqueFunds = (id: string, page: number) => {
             limit: 7,
             mosqueId: id,
           },
+        });
+        return resp.data;
+      } catch (error: any) {
+        throw new Error(error.response.data.message || error.message, {
+          cause: error,
+        });
+      }
+    },
+    enabled: !!id,
+  });
+};
+
+export const useFetchFundDetail = (id: string) => {
+  return useQuery({
+    queryKey: ["fund-detail", id],
+    queryFn: async (): Promise<GeneralResponse<ActivityDetail>> => {
+      try {
+        const resp = await axios({
+          method: "get",
+          url: `https://api.masjed.id/api/v2/funds/${id}`,
         });
         return resp.data;
       } catch (error: any) {
