@@ -104,7 +104,7 @@ export default function DetailMosque({
     <>
       <div
         className={clsx({
-          "rounded-[10px] h-[620px] border border-grey-1 p-4 transition-all duration-1000":
+          "rounded-[10px] h-[620px] md:border border-grey-1 p-4 transition-all duration-1000":
             true,
           "w-[412px]": selectedMosque,
           "w-0 hidden": !selectedMosque,
@@ -133,12 +133,11 @@ export default function DetailMosque({
                   />
 
                   <div className="flex flex-col gap-2.5">
-                    <div className="flex justify-between items-center">
-                      <Label className="text-base md:text-xl font-bold line-clamp-2">
+                    <div className="flex justify-between items-center gap-2">
+                      <Label className="text-base md:text-xl font-bold line-clamp-2 text-red-1">
                         {mosque?.name}
                       </Label>
                       <Button
-                        variant={"outline"}
                         onClick={() =>
                           window.open(
                             `https://www.google.com/maps/dir/Current+Location/${mosque?.latitude},${mosque?.longitude}`
@@ -174,9 +173,9 @@ export default function DetailMosque({
                       />
                       <div className="flex flex-col gap-1">
                         <Label className="text-xs font-semibold">
-                          Saldo Kotak Amal
+                          Saldo Kotak Amal Digital
                         </Label>
-                        <Label className="text-base md:text-xl font-semibold text-green-1">
+                        <Label className="text-base md:text-xl font-semibold text-red-1">
                           Rp {delimiter(mosque?.totalBalance || 0)}
                         </Label>
                       </div>
@@ -200,15 +199,16 @@ export default function DetailMosque({
             </Tabs>
 
             <div>
-              <div className="flex justify-between bg-blue-2 py-2 px-4 rounded">
+              <div className="flex justify-between py-2 px-4">
                 <Label className="text-[9px] leading-4">
-                  *INFAQ masjid ini akan disalurkan melalui
-                  Lembaga Amil Zakat:{" "}
-                  <span className="font-bold text-blue-1 text-[12px]">
-                    <br />Yayasan Dompet Yatim dan Mesjid
+                  *INFAQ masjid ini akan disalurkan melalui Lembaga Amil Zakat:{" "}
+                  <span className="font-bold text-red-1 text-xs">
+                    <br />
+                    Yayasan Dompet Yatim dan Mesjid
                   </span>
                   <span className="font-bold">
-                    <br />SK Menteri Agama RI Nomor 027/F/Tahun 2022
+                    <br />
+                    SK Menteri Agama RI Nomor 027/F/Tahun 2022
                   </span>
                 </Label>
                 <Image
@@ -224,7 +224,7 @@ export default function DetailMosque({
                   className="flex-1"
                   onClick={() => setDialog("payment-method")}
                 >
-                  Infaq Kotak Amal
+                  Donasi Masjid
                 </Button>
                 <Button
                   variant={"outline"}

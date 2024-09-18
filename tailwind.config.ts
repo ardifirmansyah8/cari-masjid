@@ -28,6 +28,8 @@ const config = {
         "green-2": "#DAEFE0",
         "blue-1": "#005596",
         "blue-2": "#DEEFFC",
+        "red-1": "#B11F42",
+        "red-2": "#EAAB9A",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

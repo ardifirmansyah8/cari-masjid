@@ -123,12 +123,18 @@ export default function DonationDialog({
     <Dialog open={open}>
       <DialogContent className="md:w-[550px] h-full p-0" close={false}>
         <div className="flex items-center justify-between rounded-tl-sm rounded-tr-sm border-b border-grey-1 p-7">
-          <Label className="text-base text-red-1">Infaq Kotak Amal</Label>
+          <Label className="text-base text-red-1">Pembayaran</Label>
           <X className="h-6 w-6 cursor-pointer" onClick={onClose} />
         </div>
 
         <ScrollArea className="md:h-[450px] px-7">
           <div className="flex flex-col gap-7 relative">
+            <div className="bg-red-1 px-5 py-4 flex flex-col gap-1 rounded-[10px]">
+              <Label className="text-white text-xs font-medium">Doa</Label>
+              <Label className="text-white leading-5 italic">
+                {"“Nawaitu an ukhrija zakata maali fardha llillahi ta’aala”"}
+              </Label>
+            </div>
             <div className="flex flex-col gap-2.5">
               <div className="flex flex-col gap-1">
                 <Label htmlFor="amount" className="text-grey-2">
@@ -160,7 +166,13 @@ export default function DonationDialog({
             </div>
 
             <div className="flex flex-col gap-1">
-              <Label htmlFor="phone">No Handphone<br/><span className="text-[8px] italic">Untuk menerima Bukti Setor E-ZISWAF</span></Label>
+              <Label htmlFor="phone">
+                No Handphone
+                <br />
+                <span className="text-[8px] italic">
+                  Untuk menerima Bukti Setor E-ZISWAF
+                </span>
+              </Label>
               <Input
                 id="phone"
                 leftIcon={
@@ -197,7 +209,7 @@ export default function DonationDialog({
                         {payment.method.map((method) => (
                           <div
                             key={method.paymentMethod}
-                            className="flex items-center justify-between bg-blue-2 p-2.5 rounded-sm cursor-pointer"
+                            className="flex items-center justify-between bg-red-2 p-2.5 rounded-sm cursor-pointer"
                             onClick={() =>
                               setSelectedMethod(method.paymentMethod)
                             }
@@ -212,7 +224,7 @@ export default function DonationDialog({
                               <Label>{method.paymentName}</Label>
                             </div>
                             {selectedMethod === method.paymentMethod && (
-                              <Check className="h-4 w-4 text-green-1 font-bold" />
+                              <Check className="h-4 w-4 text-red-1 font-bold" />
                             )}
                           </div>
                         ))}
@@ -221,17 +233,6 @@ export default function DonationDialog({
                   </Accordion>
                 ))}
               </div>
-            </div>
-
-            <div className="bg-green-2 px-5 py-4 flex flex-col gap-1 rounded-[10px]">
-              <Label className="text-green-1 text-xs font-medium">
-                Niat Infaq
-              </Label>
-              <Label className="font-semibold leading-5">
-                {
-                  "Nawaitu taqoruba ilallahi ta'ala, Rabbana taqabbal minna innaka antas sami'ul alim"
-                }
-              </Label>
             </div>
           </div>
         </ScrollArea>

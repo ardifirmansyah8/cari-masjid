@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { M_PLUS_1p } from "next/font/google";
 
 import { Toaster } from "@/components/ui/toaster";
 import Layout from "@/components/Layout";
@@ -7,7 +7,7 @@ import ReactQueryProvider from "@/components/Provider/ReactQueryProvider";
 
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const mplus = M_PLUS_1p({ weight: "500", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Cari Masjid",
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={mplus.className}>
         <ReactQueryProvider>
           <Layout>{children}</Layout>
         </ReactQueryProvider>
